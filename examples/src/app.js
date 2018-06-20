@@ -138,6 +138,12 @@ render(
 			useForDemo,
 		}))} showThumbnails />
 
+		<h3>With Thumbnails Lah</h3>
+		<Gallery images={[
+			{ src: 'https://images.unsplash.com/photo-1471101173712-b9884175254e?dpr=2&auto=format&w=1024&h=1024', id: 121,caption: 'video', orientation: 'landscape', useForDemo: true, type: 'image'},
+			{ src: 'https://files.ss123h-stage.com/gigco/Y4jnF5KNTV-wGgbO8sfNkg/how-it-works.mp4#t=5', id: 111,caption: 'video', orientation: 'landscape', useForDemo: true, type: 'video'}
+		]} showThumbnails showSpinner={false}/>
+
 		<h3>Themed Lightbox</h3>
 		<Gallery images={THEMED_IMAGES.map(({ caption, id, orientation, useForDemo }) => ({
 			src: makeUnsplashSrc(id),

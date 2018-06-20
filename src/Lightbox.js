@@ -60,7 +60,7 @@ class Lightbox extends Component {
 	}
 	componentWillReceiveProps (nextProps) {
 		if (!canUseDom) return;
-
+ 
 		// preload images
 		if (nextProps.preloadNextImage) {
 			const currentIndex = this.props.currentImage;
@@ -233,7 +233,7 @@ class Lightbox extends Component {
 					<div className={css(this.classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
 						{imageLoaded && this.renderHeader()}
 						{this.renderImages()}
-						{this.renderSpinner()}
+						{this.props.showSpinner && this.renderSpinner()}
 						{imageLoaded && this.renderFooter()}
 					</div>
 					{imageLoaded && this.renderThumbnails()}
@@ -244,48 +244,52 @@ class Lightbox extends Component {
 			</Container>
 		);
 	}
-	renderImages () {
+
+	renderImages = () => {
 		const {
-			currentImage,
-			images,
-			onClickImage,
-			showThumbnails,
+		  currentImage,
+		  images,
+		  onClickImage,
+		  showThumbnails,
 		} = this.props;
-
-		const { imageLoaded } = this.state;
-
+	
 		if (!images || !images.length) return null;
-
+	
 		const image = images[currentImage];
 		const sourceSet = normalizeSourceSet(image);
 		const sizes = sourceSet ? '100vw' : null;
-
+		const isVideo = (image.type === 'video') ? true : false;
 		const thumbnailsSize = showThumbnails ? this.theme.thumbnail.size : 0;
 		const heightOffset = `${this.theme.header.height + this.theme.footer.height + thumbnailsSize
-			+ (this.theme.container.gutter.vertical)}px`;
-
-		return (
+		  + (this.theme.container.gutter.vertical)}px`;
+	
+		if( isVideo ) {
+			return (
+			  <video style={{ cursor: onClickImage ? 'pointer' : 'auto', maxHeight: `calc(100vh - ${heightOffset})`, maxWidth: '100%' }} controls autoPlay>
+				<source src={image.src} type="video/mp4" />
+				Your browser does not support the video tag.
+			  </video>
+			);
+		} else {
+		  return (
 			<figure className={css(this.classes.figure)}>
-				{/*
-					Re-implement when react warning "unknown props"
-					https://fb.me/react-unknown-prop is resolved
-					<Swipeable onSwipedLeft={this.gotoNext} onSwipedRight={this.gotoPrev} />
-				*/}
-				<img
-					className={css(this.classes.image, imageLoaded && this.classes.imageLoaded)}
-					onClick={onClickImage}
-					sizes={sizes}
-					alt={image.alt}
-					src={image.src}
-					srcSet={sourceSet}
-					style={{
-						cursor: onClickImage ? 'pointer' : 'auto',
-						maxHeight: `calc(100vh - ${heightOffset})`,
-					}}
-				/>
+			  <img
+				className={css(this.classes.image, this.classes.imageLoaded)}
+				onClick={onClickImage}
+				sizes={sizes}
+				alt={image.alt}
+				src={image.src}
+				srcSet={sourceSet}
+				style={{
+				  cursor: onClickImage ? 'pointer' : 'auto',
+				  maxHeight: `calc(100vh - ${heightOffset})`,
+				}}
+			  />
 			</figure>
-		);
-	}
+		  );
+		}
+	  }
+	  
 	renderThumbnails () {
 		const { images, currentImage, onClickThumbnail, showThumbnails, thumbnailOffset } = this.props;
 

@@ -5,21 +5,52 @@ import { css, StyleSheet } from 'aphrodite/no-important';
 import defaults from '../theme';
 import deepMerge from '../utils/deepMerge';
 
-function Thumbnail ({ index, src, thumbnail, active, onClick }, { theme }) {
+function Thumbnail ({ index, src, thumbnail, active, onClick, type }, { theme }) {
 	const url = thumbnail ? thumbnail : src;
 	const classes = StyleSheet.create(deepMerge(defaultStyles, theme));
 
-	return (
-		<div
-			className={css(classes.thumbnail, active && classes.thumbnail__active)}
-			onClick={(e) => {
-				e.preventDefault();
-				e.stopPropagation();
-				onClick(index);
-			}}
-			style={{ backgroundImage: 'url("' + url + '")' }}
-		/>
-	);
+		if(type==='video') {
+			return(
+				<div 
+					className={css(classes.thumbnail, active && classes.thumbnail__active)} 
+					style={{ zIndex: 99999, position: 'relative'}}
+					onClick={(e) => {
+						e.preventDefault();
+						e.stopPropagation();
+						onClick(index);
+					}}
+				>
+				<video 
+					autoPlay={false} 
+					style={{ 
+						cursor: 'pointer',
+						position: 'absolute',
+						left: '50%',
+						top: '50%',
+						width: 'auto',
+						height: '100%',
+						transform: 'translate(-50%,-50%)'
+					}}
+				>
+					<source src={src+"#t=5"} type="video/mp4" />
+					Your browser does not support the video tag.
+				</video>
+				</div>
+			)
+		} else {
+			return (
+				<div
+					className={css(classes.thumbnail, active && classes.thumbnail__active)}
+					onClick={(e) => {
+						e.preventDefault();
+						e.stopPropagation();
+						onClick(index);
+					}}
+					style={{ backgroundImage: 'url("' + url + '")' }}
+				/>
+			)
+		}
+
 }
 
 Thumbnail.propTypes = {

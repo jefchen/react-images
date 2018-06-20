@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { css, StyleSheet } from 'aphrodite/no-important';
-import Lightbox from 'react-images';
+import Lightbox from 'react-images-with-video';
 
 class Gallery extends Component {
 	constructor () {
@@ -97,6 +97,7 @@ class Gallery extends Component {
 					spinnerColor={this.props.spinnerColor}
 					spinnerSize={this.props.spinnerSize}
 					theme={this.props.theme}
+					showSpinner={this.props.showSpinner}
 				/>
 			</div>
 		);

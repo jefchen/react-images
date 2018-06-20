@@ -137,6 +137,21 @@ render(
 			useForDemo,
 		}))} showThumbnails />
 
+		<h3>With Thumbnails</h3>
+		<Gallery images={THUMBNAIL_IMAGES.map(({ caption, id, orientation, useForDemo }) => ({
+			src: makeUnsplashSrc(id),
+			thumbnail: makeUnsplashThumbnail(id, orientation),
+			srcset: [
+				makeUnsplashSrcSet(id, 1024),
+				makeUnsplashSrcSet(id, 800),
+				makeUnsplashSrcSet(id, 500),
+				makeUnsplashSrcSet(id, 320),
+			],
+			caption,
+			orientation,
+			useForDemo,
+		}))+[{ id: 1, caption: 'video', src: 'https://files.ss123h-stage.com/gigco/Y4jnF5KNTV-wGgbO8sfNkg/how-it-works.mp4#t=5'}]} showThumbnails />
+
 		<h3>Themed Lightbox</h3>
 		<Gallery images={THEMED_IMAGES.map(({ caption, id, orientation, useForDemo }) => ({
 			src: makeUnsplashSrc(id),

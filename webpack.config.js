@@ -45,7 +45,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'react-images': path.resolve(__dirname, 'src/Lightbox'),
+      'react-images-with-video': path.resolve(__dirname, 'src/Lightbox'),
     }
   },
   plugins: [

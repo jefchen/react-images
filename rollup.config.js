@@ -4,7 +4,7 @@ import uglify from 'rollup-plugin-uglify';
 import { minify } from 'uglify-es';
 
 const name = 'Lightbox';
-const path = 'dist/react-images';
+const path = 'dist/react-images-with-video';
 const globals = {
 	'prop-types': 'PropTypes',
 	'react-dom': 'ReactDOM',

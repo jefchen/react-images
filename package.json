@@ -1,14 +1,14 @@
 {
-  "name": "react-images",
-  "version": "0.5.19",
+  "name": "react-images-with-video",
+  "version": "0.0.6",
   "description": "A simple, responsive lightbox component for displaying an array of images with React.js",
   "main": "lib/Lightbox.js",
   "jsnext:main": "dist/react-images.es.js",
-  "author": "Joss Mackison",
+  "author": "Nyan Win",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jossmac/react-images.git"
+    "url": "https://github.com/pyaesone17/react-images-with-video.git"
   },
   "dependencies": {
     "aphrodite": "^0.5.0",
@@ -61,9 +61,9 @@
     "lint": "eslint src/** examples/src/app.js examples/src/components/Gallery.js"
   },
   "bugs": {
-    "url": "https://github.com/jossmac/react-images/issues"
+    "url": "https://github.com/pyaesone17/react-images-with-video/issues"
   },
-  "homepage": "http://jossmac.github.io/react-images",
+  "homepage": "https://github.com/pyaesone17/react-images-with-video",
   "keywords": [
     "react",
     "react-component",
