@@ -1,6 +1,6 @@
+import { StyleSheet, css } from 'aphrodite';
 import PropTypes from 'prop-types';
 import React, { Children, Component } from 'react';
-import { StyleSheet, css } from 'aphrodite';
 import ScrollLock from 'react-scrolllock';
 import { StyleSheet as StyleSheet$1, css as css$1 } from 'aphrodite/no-important';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -442,6 +442,61 @@ var defaultStyles$2 = {
 		width: '100%',
 		zIndex: theme.container.zIndex
 	}
+};
+
+var Spinner = function Spinner(props) {
+	var classes = StyleSheet$1.create(styles(props));
+
+	return React.createElement(
+		'div',
+		{ className: css$1(classes.spinner) },
+		React.createElement('div', { className: css$1(classes.ripple) })
+	);
+};
+
+Spinner.propTypes = {
+	color: PropTypes.string,
+	size: PropTypes.number
+};
+
+var rippleKeyframes = {
+	'0%': {
+		top: '50%',
+		left: '50%',
+		width: 0,
+		height: 0,
+		opacity: 1
+	},
+	'100%': {
+		top: 0,
+		left: 0,
+		width: '100%',
+		height: '100%',
+		opacity: 0
+	}
+};
+
+var styles = function styles(_ref) {
+	var color = _ref.color,
+	    size = _ref.size;
+	return {
+		spinner: {
+			display: 'inline-block',
+			position: 'relative',
+			width: size,
+			height: size
+		},
+		ripple: {
+			position: 'absolute',
+			border: '4px solid ' + color,
+			opacity: 1,
+			borderRadius: '50%',
+			animationName: rippleKeyframes,
+			animationDuration: '1s',
+			animationTimingFunction: 'cubic-bezier(0, 0.2, 0.8, 1)',
+			animationIterationCount: 'infinite'
+		}
+	};
 };
 
 function Footer(_ref, _ref2) {
@@ -952,61 +1007,6 @@ Portal.contextTypes = {
 	theme: PropTypes.object.isRequired
 };
 
-var Spinner = function Spinner(props) {
-	var classes = StyleSheet$1.create(styles(props));
-
-	return React.createElement(
-		'div',
-		{ className: css$1(classes.spinner) },
-		React.createElement('div', { className: css$1(classes.ripple) })
-	);
-};
-
-Spinner.propTypes = {
-	color: PropTypes.string,
-	size: PropTypes.number
-};
-
-var rippleKeyframes = {
-	'0%': {
-		top: '50%',
-		left: '50%',
-		width: 0,
-		height: 0,
-		opacity: 1
-	},
-	'100%': {
-		top: 0,
-		left: 0,
-		width: '100%',
-		height: '100%',
-		opacity: 0
-	}
-};
-
-var styles = function styles(_ref) {
-	var color = _ref.color,
-	    size = _ref.size;
-	return {
-		spinner: {
-			display: 'inline-block',
-			position: 'relative',
-			width: size,
-			height: size
-		},
-		ripple: {
-			position: 'absolute',
-			border: '4px solid ' + color,
-			opacity: 1,
-			borderRadius: '50%',
-			animationName: rippleKeyframes,
-			animationDuration: '1s',
-			animationTimingFunction: 'cubic-bezier(0, 0.2, 0.8, 1)',
-			animationIterationCount: 'infinite'
-		}
-	};
-};
-
 /**
 	Bind multiple component methods:
 
@@ -1314,7 +1314,7 @@ var Lightbox = function (_Component) {
 			if (isVideo) {
 				return React.createElement(
 					'video',
-					{ style: { cursor: onClickImage ? 'pointer' : 'auto', maxHeight: 'calc(100vh - ' + heightOffset + ')', maxWidth: '100%' }, controls: true, autoPlay: true },
+					{ style: { cursor: onClickImage ? 'pointer' : 'auto', maxHeight: 'calc(100vh - ' + heightOffset + ')', maxWidth: '100%' }, controls: true, autoPlay: true, className: css(this.classes.video) },
 					React.createElement('source', { src: image.src, type: 'video/mp4' }),
 					'Your browser does not support the video tag.'
 				);
@@ -1505,6 +1505,9 @@ var defaultStyles = {
 	},
 	imageLoaded: {
 		opacity: 1
+	},
+	video: {
+		outline: 0
 	},
 	spinner: {
 		position: 'absolute',

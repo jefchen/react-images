@@ -1,8 +1,8 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('prop-types'), require('react'), require('aphrodite'), require('react-scrolllock'), require('aphrodite/no-important'), require('react-transition-group'), require('react-dom')) :
-	typeof define === 'function' && define.amd ? define(['prop-types', 'react', 'aphrodite', 'react-scrolllock', 'aphrodite/no-important', 'react-transition-group', 'react-dom'], factory) :
-	(global.Lightbox = factory(global.PropTypes,global.React,global.aphrodite,global.ScrollLock,global.aphrodite,global.ReactTransitionGroup,global.ReactDOM));
-}(this, (function (PropTypes,React,aphrodite,ScrollLock,noImportant,reactTransitionGroup,reactDom) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('aphrodite'), require('prop-types'), require('react'), require('react-scrolllock'), require('aphrodite/no-important'), require('react-transition-group'), require('react-dom')) :
+	typeof define === 'function' && define.amd ? define(['aphrodite', 'prop-types', 'react', 'react-scrolllock', 'aphrodite/no-important', 'react-transition-group', 'react-dom'], factory) :
+	(global.Lightbox = factory(global.aphrodite,global.PropTypes,global.React,global.ScrollLock,global.aphrodite,global.ReactTransitionGroup,global.ReactDOM));
+}(this, (function (aphrodite,PropTypes,React,ScrollLock,noImportant,reactTransitionGroup,reactDom) { 'use strict';
 
 PropTypes = PropTypes && PropTypes.hasOwnProperty('default') ? PropTypes['default'] : PropTypes;
 var React__default = 'default' in React ? React['default'] : React;
@@ -444,6 +444,61 @@ var defaultStyles$2 = {
 		width: '100%',
 		zIndex: theme.container.zIndex
 	}
+};
+
+var Spinner = function Spinner(props) {
+	var classes = noImportant.StyleSheet.create(styles(props));
+
+	return React__default.createElement(
+		'div',
+		{ className: noImportant.css(classes.spinner) },
+		React__default.createElement('div', { className: noImportant.css(classes.ripple) })
+	);
+};
+
+Spinner.propTypes = {
+	color: PropTypes.string,
+	size: PropTypes.number
+};
+
+var rippleKeyframes = {
+	'0%': {
+		top: '50%',
+		left: '50%',
+		width: 0,
+		height: 0,
+		opacity: 1
+	},
+	'100%': {
+		top: 0,
+		left: 0,
+		width: '100%',
+		height: '100%',
+		opacity: 0
+	}
+};
+
+var styles = function styles(_ref) {
+	var color = _ref.color,
+	    size = _ref.size;
+	return {
+		spinner: {
+			display: 'inline-block',
+			position: 'relative',
+			width: size,
+			height: size
+		},
+		ripple: {
+			position: 'absolute',
+			border: '4px solid ' + color,
+			opacity: 1,
+			borderRadius: '50%',
+			animationName: rippleKeyframes,
+			animationDuration: '1s',
+			animationTimingFunction: 'cubic-bezier(0, 0.2, 0.8, 1)',
+			animationIterationCount: 'infinite'
+		}
+	};
 };
 
 function Footer(_ref, _ref2) {
@@ -954,61 +1009,6 @@ Portal.contextTypes = {
 	theme: PropTypes.object.isRequired
 };
 
-var Spinner = function Spinner(props) {
-	var classes = noImportant.StyleSheet.create(styles(props));
-
-	return React__default.createElement(
-		'div',
-		{ className: noImportant.css(classes.spinner) },
-		React__default.createElement('div', { className: noImportant.css(classes.ripple) })
-	);
-};
-
-Spinner.propTypes = {
-	color: PropTypes.string,
-	size: PropTypes.number
-};
-
-var rippleKeyframes = {
-	'0%': {
-		top: '50%',
-		left: '50%',
-		width: 0,
-		height: 0,
-		opacity: 1
-	},
-	'100%': {
-		top: 0,
-		left: 0,
-		width: '100%',
-		height: '100%',
-		opacity: 0
-	}
-};
-
-var styles = function styles(_ref) {
-	var color = _ref.color,
-	    size = _ref.size;
-	return {
-		spinner: {
-			display: 'inline-block',
-			position: 'relative',
-			width: size,
-			height: size
-		},
-		ripple: {
-			position: 'absolute',
-			border: '4px solid ' + color,
-			opacity: 1,
-			borderRadius: '50%',
-			animationName: rippleKeyframes,
-			animationDuration: '1s',
-			animationTimingFunction: 'cubic-bezier(0, 0.2, 0.8, 1)',
-			animationIterationCount: 'infinite'
-		}
-	};
-};
-
 /**
 	Bind multiple component methods:
 
@@ -1316,7 +1316,7 @@ var Lightbox = function (_Component) {
 			if (isVideo) {
 				return React__default.createElement(
 					'video',
-					{ style: { cursor: onClickImage ? 'pointer' : 'auto', maxHeight: 'calc(100vh - ' + heightOffset + ')', maxWidth: '100%' }, controls: true, autoPlay: true },
+					{ style: { cursor: onClickImage ? 'pointer' : 'auto', maxHeight: 'calc(100vh - ' + heightOffset + ')', maxWidth: '100%' }, controls: true, autoPlay: true, className: aphrodite.css(this.classes.video) },
 					React__default.createElement('source', { src: image.src, type: 'video/mp4' }),
 					'Your browser does not support the video tag.'
 				);
@@ -1507,6 +1507,9 @@ var defaultStyles = {
 	},
 	imageLoaded: {
 		opacity: 1
+	},
+	video: {
+		outline: 0
 	},
 	spinner: {
 		position: 'absolute',

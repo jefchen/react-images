@@ -1,20 +1,19 @@
+import { css, StyleSheet } from 'aphrodite';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { css, StyleSheet } from 'aphrodite';
 import ScrollLock from 'react-scrolllock';
 
-import defaultTheme from './theme';
 import Arrow from './components/Arrow';
 import Container from './components/Container';
+import DefaultSpinner from './components/Spinner';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import PaginatedThumbnails from './components/PaginatedThumbnails';
 import Portal from './components/Portal';
-import DefaultSpinner from './components/Spinner';
-
 import bindFunctions from './utils/bindFunctions';
 import canUseDom from './utils/canUseDom';
 import deepMerge from './utils/deepMerge';
+import defaultTheme from './theme';
 
 // consumers sometimes provide incorrect type or casing
 function normalizeSourceSet (data) {
@@ -265,13 +264,13 @@ class Lightbox extends Component {
 
 		if (isVideo) {
 			return (
-			  <video style={{ cursor: onClickImage ? 'pointer' : 'auto', maxHeight: `calc(100vh - ${heightOffset})`, maxWidth: '100%' }} controls autoPlay>
+			  <video style={{ cursor: onClickImage ? 'pointer' : 'auto', maxHeight: `calc(100vh - ${heightOffset})`, maxWidth: '100%' }} controls autoPlay className={css(this.classes.video)}>
 				<source src={image.src} type="video/mp4" />
 				Your browser does not support the video tag.
 			  </video>
 			);
 		} else {
-		  																																								return (
+			return (
 			<figure className={css(this.classes.figure)}>
 			  <img
 				className={css(this.classes.image, this.classes.imageLoaded)}
@@ -281,8 +280,8 @@ class Lightbox extends Component {
 				src={image.src}
 				srcSet={sourceSet}
 				style={{
-				  																																								cursor: onClickImage ? 'pointer' : 'auto',
-				  																																								maxHeight: `calc(100vh - ${heightOffset})`,
+					cursor: onClickImage ? 'pointer' : 'auto',
+					maxHeight: `calc(100vh - ${heightOffset})`,
 				}}
 			  />
 			</figure>
@@ -449,6 +448,9 @@ const defaultStyles = {
 	},
 	imageLoaded: {
 		opacity: 1,
+	},
+	video: {
+		outline: 0,
 	},
 	spinner: {
 		position: 'absolute',
