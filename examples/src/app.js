@@ -46,8 +46,24 @@ const THUMBNAIL_IMAGES = [
 	{ id: '1470583190240-bd6bbde8a569', caption: 'Photo by Alan Emery', orientation: 'landscape' }, // https://unsplash.com/photos/emTCWiq2txk (Beetle)
 	{ id: '1470688090067-6d429c0b2600', caption: 'Photo by Ján Jakub Naništa', orientation: 'landscape' }, // https://unsplash.com/photos/xqjO-lx39B4 (Scottish Highland Cow)
 	{ id: '1470742292565-de43c4b02b57', caption: 'Photo by Eric Knoll', orientation: 'landscape' }, // https://unsplash.com/photos/DmOCkOnx-MQ (Cheetah)
-	// https://unsplash.com/photos/NUMlxTPsznM coyote?
 ];
+const VIDEOS = [
+	{ src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', id: 111, caption: 'video', orientation: 'landscape', useForDemo: true, type: 'video' },
+];
+
+const thumbnailImagesWithVideo = THUMBNAIL_IMAGES.map(({ caption, id, orientation, useForDemo }) => ({
+	src: makeUnsplashSrc(id),
+	thumbnail: makeUnsplashThumbnail(id, orientation),
+	srcSet: [
+		makeUnsplashSrcSet(id, 1024),
+		makeUnsplashSrcSet(id, 800),
+		makeUnsplashSrcSet(id, 500),
+		makeUnsplashSrcSet(id, 320),
+	],
+	caption,
+	orientation,
+	useForDemo,
+})).concat(VIDEOS);
 
 const theme = {
 	// container
@@ -124,25 +140,7 @@ render(
 		}))} />
 
 		<h3>With Thumbnails</h3>
-		<Gallery images={THUMBNAIL_IMAGES.map(({ caption, id, orientation, useForDemo }) => ({
-			src: makeUnsplashSrc(id),
-			thumbnail: makeUnsplashThumbnail(id, orientation),
-			srcSet: [
-				makeUnsplashSrcSet(id, 1024),
-				makeUnsplashSrcSet(id, 800),
-				makeUnsplashSrcSet(id, 500),
-				makeUnsplashSrcSet(id, 320),
-			],
-			caption,
-			orientation,
-			useForDemo,
-		}))} showThumbnails />
-
-		<h3>With Thumbnails Lah</h3>
-		<Gallery images={[
-			{ src: 'https://images.unsplash.com/photo-1471101173712-b9884175254e?dpr=2&auto=format&w=1024&h=1024', id: 121,caption: 'video', orientation: 'landscape', useForDemo: true, type: 'image'},
-			{ src: 'https://files.ss123h-stage.com/gigco/Y4jnF5KNTV-wGgbO8sfNkg/how-it-works.mp4#t=5', id: 111,caption: 'video', orientation: 'landscape', useForDemo: true, type: 'video'}
-		]} showThumbnails showSpinner={false}/>
+		<Gallery images={thumbnailImagesWithVideo} showThumbnails />
 
 		<h3>Themed Lightbox</h3>
 		<Gallery images={THEMED_IMAGES.map(({ caption, id, orientation, useForDemo }) => ({
