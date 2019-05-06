@@ -60,7 +60,7 @@ class Lightbox extends Component {
 	}
 	componentWillReceiveProps (nextProps) {
 		if (!canUseDom) return;
- 
+
 		// preload images
 		if (nextProps.preloadNextImage) {
 			const currentIndex = this.props.currentImage;
@@ -245,16 +245,16 @@ class Lightbox extends Component {
 		);
 	}
 
-	renderImages = () => {
+	renderImages () {
 		const {
 		  currentImage,
 		  images,
 		  onClickImage,
 		  showThumbnails,
 		} = this.props;
-	
+
 		if (!images || !images.length) return null;
-	
+
 		const image = images[currentImage];
 		const sourceSet = normalizeSourceSet(image);
 		const sizes = sourceSet ? '100vw' : null;
@@ -262,8 +262,8 @@ class Lightbox extends Component {
 		const thumbnailsSize = showThumbnails ? this.theme.thumbnail.size : 0;
 		const heightOffset = `${this.theme.header.height + this.theme.footer.height + thumbnailsSize
 		  + (this.theme.container.gutter.vertical)}px`;
-	
-		if( isVideo ) {
+
+		if (isVideo) {
 			return (
 			  <video style={{ cursor: onClickImage ? 'pointer' : 'auto', maxHeight: `calc(100vh - ${heightOffset})`, maxWidth: '100%' }} controls autoPlay>
 				<source src={image.src} type="video/mp4" />
@@ -271,7 +271,7 @@ class Lightbox extends Component {
 			  </video>
 			);
 		} else {
-		  return (
+		  																																								return (
 			<figure className={css(this.classes.figure)}>
 			  <img
 				className={css(this.classes.image, this.classes.imageLoaded)}
@@ -281,15 +281,15 @@ class Lightbox extends Component {
 				src={image.src}
 				srcSet={sourceSet}
 				style={{
-				  cursor: onClickImage ? 'pointer' : 'auto',
-				  maxHeight: `calc(100vh - ${heightOffset})`,
+				  																																								cursor: onClickImage ? 'pointer' : 'auto',
+				  																																								maxHeight: `calc(100vh - ${heightOffset})`,
 				}}
 			  />
 			</figure>
 		  );
 		}
 	  }
-	  
+
 	renderThumbnails () {
 		const { images, currentImage, onClickThumbnail, showThumbnails, thumbnailOffset } = this.props;
 

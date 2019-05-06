@@ -609,7 +609,7 @@ function Thumbnail(_ref, _ref2) {
 						transform: 'translate(-50%,-50%)'
 					}
 				},
-				React.createElement('source', { src: src, type: 'video/mp4' }),
+				React.createElement('source', { src: src + "#t=5", type: 'video/mp4' }),
 				'Your browser does not support the video tag.'
 			)
 		);
@@ -1050,50 +1050,6 @@ var Lightbox = function (_Component) {
 
 		var _this = possibleConstructorReturn(this, (Lightbox.__proto__ || Object.getPrototypeOf(Lightbox)).call(this, props));
 
-		_this.renderImages = function () {
-			var _this$props = _this.props,
-			    currentImage = _this$props.currentImage,
-			    images = _this$props.images,
-			    onClickImage = _this$props.onClickImage,
-			    showThumbnails = _this$props.showThumbnails;
-
-
-			if (!images || !images.length) return null;
-
-			var image = images[currentImage];
-			var sourceSet = normalizeSourceSet(image);
-			var sizes = sourceSet ? '100vw' : null;
-			var isVideo = image.type === 'video' ? true : false;
-			var thumbnailsSize = showThumbnails ? _this.theme.thumbnail.size : 0;
-			var heightOffset = _this.theme.header.height + _this.theme.footer.height + thumbnailsSize + _this.theme.container.gutter.vertical + 'px';
-
-			if (isVideo) {
-				return React.createElement(
-					'video',
-					{ style: { cursor: onClickImage ? 'pointer' : 'auto', maxHeight: 'calc(100vh - ' + heightOffset + ')', maxWidth: '100%' }, controls: true, autoPlay: true },
-					React.createElement('source', { src: image.src, type: 'video/mp4' }),
-					'Your browser does not support the video tag.'
-				);
-			} else {
-				return React.createElement(
-					'figure',
-					{ className: css(_this.classes.figure) },
-					React.createElement('img', {
-						className: css(_this.classes.image, _this.classes.imageLoaded),
-						onClick: onClickImage,
-						sizes: sizes,
-						alt: image.alt,
-						src: image.src,
-						srcSet: sourceSet,
-						style: {
-							cursor: onClickImage ? 'pointer' : 'auto',
-							maxHeight: 'calc(100vh - ' + heightOffset + ')'
-						}
-					})
-				);
-			}
-		};
-
 		_this.theme = deepMerge(theme, props.theme);
 		_this.classes = StyleSheet.create(deepMerge(defaultStyles, _this.theme));
 		_this.state = { imageLoaded: false };
@@ -1337,14 +1293,59 @@ var Lightbox = function (_Component) {
 			);
 		}
 	}, {
+		key: 'renderImages',
+		value: function renderImages() {
+			var _props3 = this.props,
+			    currentImage = _props3.currentImage,
+			    images = _props3.images,
+			    onClickImage = _props3.onClickImage,
+			    showThumbnails = _props3.showThumbnails;
+
+
+			if (!images || !images.length) return null;
+
+			var image = images[currentImage];
+			var sourceSet = normalizeSourceSet(image);
+			var sizes = sourceSet ? '100vw' : null;
+			var isVideo = image.type === 'video' ? true : false;
+			var thumbnailsSize = showThumbnails ? this.theme.thumbnail.size : 0;
+			var heightOffset = this.theme.header.height + this.theme.footer.height + thumbnailsSize + this.theme.container.gutter.vertical + 'px';
+
+			if (isVideo) {
+				return React.createElement(
+					'video',
+					{ style: { cursor: onClickImage ? 'pointer' : 'auto', maxHeight: 'calc(100vh - ' + heightOffset + ')', maxWidth: '100%' }, controls: true, autoPlay: true },
+					React.createElement('source', { src: image.src, type: 'video/mp4' }),
+					'Your browser does not support the video tag.'
+				);
+			} else {
+				return React.createElement(
+					'figure',
+					{ className: css(this.classes.figure) },
+					React.createElement('img', {
+						className: css(this.classes.image, this.classes.imageLoaded),
+						onClick: onClickImage,
+						sizes: sizes,
+						alt: image.alt,
+						src: image.src,
+						srcSet: sourceSet,
+						style: {
+							cursor: onClickImage ? 'pointer' : 'auto',
+							maxHeight: 'calc(100vh - ' + heightOffset + ')'
+						}
+					})
+				);
+			}
+		}
+	}, {
 		key: 'renderThumbnails',
 		value: function renderThumbnails() {
-			var _props3 = this.props,
-			    images = _props3.images,
-			    currentImage = _props3.currentImage,
-			    onClickThumbnail = _props3.onClickThumbnail,
-			    showThumbnails = _props3.showThumbnails,
-			    thumbnailOffset = _props3.thumbnailOffset;
+			var _props4 = this.props,
+			    images = _props4.images,
+			    currentImage = _props4.currentImage,
+			    onClickThumbnail = _props4.onClickThumbnail,
+			    showThumbnails = _props4.showThumbnails,
+			    thumbnailOffset = _props4.thumbnailOffset;
 
 
 			if (!showThumbnails) return;
@@ -1359,11 +1360,11 @@ var Lightbox = function (_Component) {
 	}, {
 		key: 'renderHeader',
 		value: function renderHeader() {
-			var _props4 = this.props,
-			    closeButtonTitle = _props4.closeButtonTitle,
-			    customControls = _props4.customControls,
-			    onClose = _props4.onClose,
-			    showCloseButton = _props4.showCloseButton;
+			var _props5 = this.props,
+			    closeButtonTitle = _props5.closeButtonTitle,
+			    customControls = _props5.customControls,
+			    onClose = _props5.onClose,
+			    showCloseButton = _props5.showCloseButton;
 
 
 			return React.createElement(Header, {
@@ -1376,11 +1377,11 @@ var Lightbox = function (_Component) {
 	}, {
 		key: 'renderFooter',
 		value: function renderFooter() {
-			var _props5 = this.props,
-			    currentImage = _props5.currentImage,
-			    images = _props5.images,
-			    imageCountSeparator = _props5.imageCountSeparator,
-			    showImageCount = _props5.showImageCount;
+			var _props6 = this.props,
+			    currentImage = _props6.currentImage,
+			    images = _props6.images,
+			    imageCountSeparator = _props6.imageCountSeparator,
+			    showImageCount = _props6.showImageCount;
 
 
 			if (!images || !images.length) return null;
@@ -1396,10 +1397,10 @@ var Lightbox = function (_Component) {
 	}, {
 		key: 'renderSpinner',
 		value: function renderSpinner() {
-			var _props6 = this.props,
-			    spinner = _props6.spinner,
-			    spinnerColor = _props6.spinnerColor,
-			    spinnerSize = _props6.spinnerSize;
+			var _props7 = this.props,
+			    spinner = _props7.spinner,
+			    spinnerColor = _props7.spinnerColor,
+			    spinnerSize = _props7.spinnerSize;
 			var imageLoaded = this.state.imageLoaded;
 
 			var Spinner$$1 = spinner;
